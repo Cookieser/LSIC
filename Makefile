@@ -9,7 +9,7 @@ ifeq ($(PREFIX), )
 endif
 
 #standaloine command interpreter executable recipe	
-build/paillier_standalone: build/main.o $(OBJ_LIB)
+build/LSIC: build/main.o $(OBJ_LIB)
 	$(CC) -Wall -o $@ $^ -lgmp -lpthread
 
 #command interpreter executable recipe	
@@ -53,8 +53,8 @@ clean:
 
 debug: build/paillier
 debug: CFLAGS += -ggdb -DPAILLIER_DEBUG
-release: build/paillier
-standalone: build/paillier_standalone
+release: build/LSIC
+standalone: build/LSIC
 sharedlib: build/lib/libpaillier.so
 staticlib: build/lib/libpaillier.a
 all: release doc staticlib sharedlib
