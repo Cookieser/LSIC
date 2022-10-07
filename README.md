@@ -6,18 +6,27 @@ This is the implementation of the scheme in ["COMPARING ENCRYPTED DATA"](https:/
 
 We can use this software to finish the secure integer comparison according to the schematic design.
 
+Then, we  implement the application which is a real scenario about the Electric-tax index.
+
 ## How to use
 
 ```
 make
 cd build/
-
-# ./LSIC A B length
-# We should input A and B, and the max bit-length of them  
-./LSIC 200 34 8
+./Implementation 
 ```
 
 ## For example
+
+![image-20221008004041801](https://pic-1306483575.cos.ap-nanjing.myqcloud.com/images/image-20221008004041801.png)
+
+![image-20221008004050731](https://pic-1306483575.cos.ap-nanjing.myqcloud.com/images/image-20221008004050731.png)
+
+
+
+### LSIC
+
+Now this had been merged in the main program in `lsic.c` and `lsic.h`
 
 ![image-20221002221905499](https://pic-1306483575.cos.ap-nanjing.myqcloud.com/images/image-20221002221905499.png)
 

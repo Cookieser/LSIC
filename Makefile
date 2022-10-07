@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS = -Wall -Werror -c -lpthread -DPAILLIER_THREAD -fpic
-DEPS = include/paillier.h src/tools.h
-OBJ_LIB = build/tools.o build/paillier.o build/paillier_manage_keys.o build/paillier_io.o
+DEPS = include/paillier.h src/tools.h src/lsic.h
+OBJ_LIB = build/tools.o build/paillier.o build/paillier_manage_keys.o build/paillier_io.o build/lsic.o
 OBJ_INTERPRETER = build/main.o 
 
 ifeq ($(PREFIX), )
@@ -9,7 +9,7 @@ ifeq ($(PREFIX), )
 endif
 
 #standaloine command interpreter executable recipe	
-build/LSIC: build/main.o $(OBJ_LIB)
+build/Implementation: build/main.o $(OBJ_LIB)
 	$(CC) -Wall -o $@ $^ -lgmp -lpthread
 
 #command interpreter executable recipe	
