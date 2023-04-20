@@ -24,8 +24,8 @@ int test(mpz_t ctest,paillier_private_key priv){
 
 	    paillier_decrypt(test,ctest,&priv);
 
-	    gmp_printf ("The result of this comparison:%Zd \n",test);
-	    printf("\n");
+	   // gmp_printf ("The result of this comparison:%Zd \n",test);
+	   // printf("\n");
 
 	    mpz_clear(test);
 
@@ -47,7 +47,7 @@ int binarybit(mpz_t r,mpz_t val,int n){
 		    val=q;
         }
 
-           gmp_printf ("The %d-bit of this value is %Zd\n",n,r);
+           //gmp_printf ("The %d-bit of this value is %Zd\n",n,r);
 
           mpz_clear(q);
           mpz_clear(d);
@@ -83,13 +83,13 @@ int LSIC(mpz_t a,mpz_t b, int l) {
 	    mpz_set_si(one, 1);
 	    mpz_set_si(negativeone, -1);
 	
-	    printf("B:");
+	    //printf("B:");
     	    binarybit(b0,b,0);
    	    paillier_encrypt(cb0,b0,&pub);
     	    paillier_encrypt(czero,zero,&pub);
     	    paillier_encrypt(cone,one,&pub);
    
-     	    printf("A:");
+     	    //printf("A:");
     	    binarybit(a0,a,0);
    	
       	    if(mpz_cmp_si(a0,0)) mpz_set(ct,czero);
@@ -98,8 +98,8 @@ int LSIC(mpz_t a,mpz_t b, int l) {
 
     	    paillier_decrypt(t,ct,&priv);
 	
-     	    gmp_printf ("Finish the comparison between the least significant bits, we can get the result t = %Zd \n",t);
-    	    printf("\n");
+     	    //gmp_printf ("Finish the comparison between the least significant bits, we can get the result t = %Zd \n",t);
+    	    //printf("\n");
 
 
 
@@ -118,7 +118,7 @@ int LSIC(mpz_t a,mpz_t b, int l) {
 	
 	
 	        //15-24
-	        printf("B:");
+	        //printf("B:");
 	        binarybit(bi,b,i);
 
 	        if(mpz_cmp_si(bi,0)) mpz_set(ctb,ctau);
@@ -135,7 +135,7 @@ int LSIC(mpz_t a,mpz_t b, int l) {
 	
 	
 	        //25-30
-	        printf("A:");
+	        //printf("A:");
 	        binarybit(ai,a,i);
 	        if(mpz_cmp_si(ai,0)) mpz_set(ct,ctb);
 	        else
@@ -150,13 +150,15 @@ int LSIC(mpz_t a,mpz_t b, int l) {
 	
 	    paillier_decrypt(t,ct,&priv);
 	
-	    if(mpz_cmp_si(t,0)) printf("The value of enterprise is smaller than the threshold.\n");
-	    else printf("The value of enterprise is equal or larger than the threshold.\n");
+	    //if(mpz_cmp_si(t,0)) printf("The value of enterprise is smaller than the threshold.\n");
+	    //else printf("The value of enterprise is equal or larger than the threshold.\n");
 	
 	
-	    printf("--------------------------------------------------------\n");
+	    //printf("--------------------------------------------------------\n");
 
-	    gmp_printf ("Proof:The inputA=%Zd, inputB=%Zd\n",a,b);
+	    //gmp_printf ("Proof:The inputA=%Zd, inputB=%Zd\n",a,b);
+	    int res;
+	    res=mpz_get_ui(t);
 	
 
 	
@@ -184,5 +186,5 @@ int LSIC(mpz_t a,mpz_t b, int l) {
 	
 	
 	
-	    return 0;
+	    return res;
 }

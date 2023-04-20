@@ -10,13 +10,55 @@
 #include "../include/paillier.h"
 
 
+
+
+
+
+char* gen_public_key(paillier_private_key *priv,paillier_public_key *pub){
+	mpz_t res;
+	mpz_init(res);
+
+	
+	paillier_public_init(pub);
+	paillier_private_init(priv);
+	paillier_keygen(pub, priv, 2048);
+	mpz_set(res,pub->n);
+
+
+	//gmp_printf ("%Zd\n",res);
+	char *str=NULL;	
+	str=mpz_get_str(str,10,res);
+	
+	return str;
+	
+}
+
+
+char* encryptX(mpz_t cx,mpz_t x,paillier_public_key *pub){
+
+	paillier_encrypt(cx,x,pub);
+	char *str=NULL;
+	str=mpz_get_str(str,10,cx);
+	return str;
+}
+
+char* encryptCompute(mpz_t cd,mpz_t cr,paillier_public_key *pub){
+
+	paillier_homomorphic_add(cd,cd,cr,pub);
+	char *str=NULL;
+	str=mpz_get_str(str,10,cd);
+	return str;
+}
+
+
            
-int main(){
+int main(int argc,char *argv[]){
+	
 
 	const int K=1000000;
-	double inputx;
-	long int inputy;
-	double inputtau;
+	double inputx = atof(argv[1]);
+	long int inputy = atoi(argv[2]);
+	double inputtau = atof(argv[3]);
 	int l=40;
 	mpz_t x, y, cx, d, cd, r, cr, tau;
 	mpz_init(x);
@@ -28,18 +70,6 @@ int main(){
 	mpz_init(cr);
 	mpz_init(tau);
 	
-	printf("The tax department inputs x(A decimal of five significant digits): ");
-	
-	scanf("%lf",&inputx);
-	
-	printf("State Grid Corporation inputs integer y: ");
-	
-	scanf("%ld",&inputy);
-	
-	printf("State Grid Corporation inputs integer tau(A decimal of five significant digits): ");
-	
-	scanf("%lf",&inputtau);
-	
 	
 	inputx = inputx*K;
 	
@@ -47,26 +77,22 @@ int main(){
 	
 	mpz_set_si(x, (int)inputx);
 	
-	//gmp_printf ("x*100000:%Zd\n",x);
 	
 	mpz_set_si(y, inputy);
 	
 	mpz_set_si(tau, (int)inputtau);
 	
-	//gmp_printf ("tau*1000000:%Zd\n",tau); 
 	
 	//generate keys
-	int len=2048;
-	paillier_public_key pub;
+	
 	paillier_private_key priv;
-
-	paillier_public_init(&pub);
-	paillier_private_init(&priv);
-	paillier_keygen(&pub, &priv, len);
-	    
-	    
-	paillier_encrypt(cx,x,&pub);
-	    
+        paillier_public_key pub;	 
+	gen_public_key(&priv,&pub);
+	
+	
+	
+	encryptX(cx,x,&pub);
+	  
 	    
 	paillier_homomorphic_multc(cd,cx,y,&pub);
 	    
@@ -77,25 +103,25 @@ int main(){
 	    
 	int c=rand()%100000;
 	    
-       //printf("c:%d\n",c);
 	    
 	mpz_set_si(r, c);
 	    
 	paillier_encrypt(cr,r,&pub);
 	    
-	paillier_homomorphic_add(cd,cd,cr,&pub);
+	//paillier_homomorphic_add(cd,cd,cr,&pub);
 		
-		
+	encryptCompute(cd,cr,&pub);
 	paillier_decrypt(d,cd,&priv);
+	
 	//gmp_printf ("x*y*1000000+r:%Zd\n",d); 
 	    
 	mpz_add(tau,tau,r);
 	
 	//gmp_printf ("tau*1000000+r:%Zd\n",tau); 
-	printf("\n");   
+	//printf("\n");   
 	    
-	LSIC(d,tau,l);
-	    
+	int res=LSIC(d,tau,l);
+	//printf("%d\n",res);
 	    
 
  	mpz_clear(x);
@@ -108,7 +134,7 @@ int main(){
 	mpz_clear(tau);
 	    
 	    
-        return 0;
+        return res;
 
 
 
