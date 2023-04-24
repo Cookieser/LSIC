@@ -10,8 +10,6 @@
 #include "../include/paillier.h"
 
 
-           
- 
  /*
  
  LSIC:Lightweight Secure Integer Comparison

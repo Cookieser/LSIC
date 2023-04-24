@@ -31,7 +31,7 @@ tau:The comparison threshold that we set
 This means the comparison between 0.0023*20001 and 46
 ```
 
-
+**Key function**
 
 **gen_public_key**
 
