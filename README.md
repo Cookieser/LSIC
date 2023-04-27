@@ -36,22 +36,17 @@ This means the comparison between 0.0023*20001 and 46
 **gen_public_key**
 
 ```
-char* gen_public_key(paillier_private_key *priv,paillier_public_key *pub)
+gen_public_key()
 return public_key(char *)
-
-priv:private key
-pub:public key
 ```
 
 **encryptX**
 
 ```
-char* encryptX(mpz_t cx,mpz_t x,paillier_public_key *pub)
-return the encryption value of c(char *)
+char* encryptX(char* input)
+return the encryption value of input(char *)
 
-cx:The encryption value of c
-c:input value which will be encrypted
-pub:public key
+input:input value which will be encrypted
 ```
 
 
@@ -59,12 +54,11 @@ pub:public key
 **encryptCompute**
 
 ```
-encryptCompute(mpz_t cd,mpz_t cr,paillier_public_key *pub)
+encryptCompute(char* inputcd,char* inputcr)
 return the  encryption value of x*y+r
 
-cr:The encryption value of r
-cd:The encryption value of x*y
-publ:public key
+inputcd:The encryption value of r
+inputcd:The encryption value of x*y
 ```
 
 

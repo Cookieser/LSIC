@@ -11,42 +11,51 @@
 
 
 
+paillier_private_key priv;
+paillier_public_key pub;
 
 
-
-char* gen_public_key(paillier_private_key *priv,paillier_public_key *pub){
+char* gen_public_key(){
 	mpz_t res;
 	mpz_init(res);
-
-	
-	paillier_public_init(pub);
-	paillier_private_init(priv);
-	paillier_keygen(pub, priv, 2048);
-	mpz_set(res,pub->n);
-
-
+	paillier_public_init(&pub);
+	paillier_private_init(&priv);
+	paillier_keygen(&pub, &priv, 2048);
+	paillier_public_key *pub1=&pub;
+	mpz_set(res,pub1->n);
 	//gmp_printf ("%Zd\n",res);
 	char *str=NULL;	
 	str=mpz_get_str(str,10,res);
-	
+	mpz_clear(res);
 	return str;
 	
 }
 
 
-char* encryptX(mpz_t cx,mpz_t x,paillier_public_key *pub){
-
-	paillier_encrypt(cx,x,pub);
+char* encryptX(char* input){
+	mpz_t x,cx;
+	mpz_init(x);
+	mpz_init(cx);
+	mpz_set_str(x,input,10);
+	paillier_encrypt(cx,x,&pub);
 	char *str=NULL;
 	str=mpz_get_str(str,10,cx);
+	mpz_clear(x);
+	mpz_clear(cx);
 	return str;
 }
 
-char* encryptCompute(mpz_t cd,mpz_t cr,paillier_public_key *pub){
-
-	paillier_homomorphic_add(cd,cd,cr,pub);
+char* encryptCompute(char* inputcd,char* inputcr){
+	mpz_t cd,cr;
+	mpz_init(cd);
+	mpz_init(cr);
+	mpz_set_str(cd,inputcd,10);
+	mpz_set_str(cr,inputcr,10);
+	paillier_homomorphic_add(cd,cd,cr,&pub);
 	char *str=NULL;
 	str=mpz_get_str(str,10,cd);
+	mpz_clear(cd);
+	mpz_clear(cr);
 	return str;
 }
 
@@ -54,7 +63,8 @@ char* encryptCompute(mpz_t cd,mpz_t cr,paillier_public_key *pub){
            
 int main(int argc,char *argv[]){
 	
-
+	char *str=NULL;
+	char *str1=NULL;
 	const int K=1000000;
 	double inputx = atof(argv[1]);
 	long int inputy = atoi(argv[2]);
@@ -84,15 +94,14 @@ int main(int argc,char *argv[]){
 	
 	
 	//generate keys
-	
-	paillier_private_key priv;
-        paillier_public_key pub;	 
-	gen_public_key(&priv,&pub);
-	
+	str=gen_public_key();
+	//printf("%s\n",str);
+	str=mpz_get_str(str,10,x);
 	
 	
-	encryptX(cx,x,&pub);
-	  
+	str=encryptX(str);
+	//printf("%s\n",str);
+	mpz_set_str(cx,str,10);
 	    
 	paillier_homomorphic_multc(cd,cx,y,&pub);
 	    
@@ -109,8 +118,12 @@ int main(int argc,char *argv[]){
 	paillier_encrypt(cr,r,&pub);
 	    
 	//paillier_homomorphic_add(cd,cd,cr,&pub);
+	str=mpz_get_str(str,10,cd);
+	
+	str1=mpz_get_str(str1,10,cr);
 		
-	encryptCompute(cd,cr,&pub);
+	str=encryptCompute(str,str1);
+	mpz_set_str(cd,str,10);
 	paillier_decrypt(d,cd,&priv);
 	
 	//gmp_printf ("x*y*1000000+r:%Zd\n",d); 
@@ -121,7 +134,7 @@ int main(int argc,char *argv[]){
 	//printf("\n");   
 	    
 	int res=LSIC(d,tau,l);
-	//printf("%d\n",res);
+	printf("%d\n",res);
 	    
 
  	mpz_clear(x);

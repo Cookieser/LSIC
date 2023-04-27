@@ -27,9 +27,9 @@
 int test(mpz_t ctest,paillier_private_key priv);
 int binarybit(mpz_t r,mpz_t val,int n);
 int LSIC(mpz_t a,mpz_t b, int l);
-char* gen_public_key(paillier_private_key *priv,paillier_public_key *pub);
-char* encryptX(mpz_t cx,mpz_t x,paillier_public_key *pub);
-char* encryptCompute(mpz_t cd,mpz_t cr,paillier_public_key *pub);
+char* gen_public_key();
+char* encryptX(char* input);
+char* encryptCompute(char* inputcd,char* inputcr);
 
 
 

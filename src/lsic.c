@@ -147,16 +147,17 @@ int LSIC(mpz_t a,mpz_t b, int l) {
 	    }
 	
 	    paillier_decrypt(t,ct,&priv);
+	    /*
+	    if(mpz_cmp_si(t,0)) printf("The value of enterprise is smaller than the threshold.\n");
+	    else printf("The value of enterprise is equal or larger than the threshold.\n");
 	
-	    //if(mpz_cmp_si(t,0)) printf("The value of enterprise is smaller than the threshold.\n");
-	    //else printf("The value of enterprise is equal or larger than the threshold.\n");
 	
-	
-	    //printf("--------------------------------------------------------\n");
+	    printf("--------------------------------------------------------\n");
 
-	    //gmp_printf ("Proof:The inputA=%Zd, inputB=%Zd\n",a,b);
+	    gmp_printf ("Proof:The inputA=%Zd, inputB=%Zd\n",a,b);
+	    */
 	    int res;
-	    res=mpz_get_ui(t);
+	    res=mpz_cmp_si(t,0);
 	
 
 	
