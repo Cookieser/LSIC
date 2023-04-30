@@ -10,6 +10,22 @@
 #include "../include/paillier.h"
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+           
+ 
  /*
  
  LSIC:Lightweight Secure Integer Comparison
@@ -22,8 +38,8 @@ int test(mpz_t ctest,paillier_private_key priv){
 
 	    paillier_decrypt(test,ctest,&priv);
 
-	   // gmp_printf ("The result of this comparison:%Zd \n",test);
-	   // printf("\n");
+	    //gmp_printf ("The result of this comparison:%Zd \n",test);
+	    //printf("\n");
 
 	    mpz_clear(test);
 
@@ -147,20 +163,17 @@ int LSIC(mpz_t a,mpz_t b, int l) {
 	    }
 	
 	    paillier_decrypt(t,ct,&priv);
-	    /*
-	    if(mpz_cmp_si(t,0)) printf("The value of enterprise is smaller than the threshold.\n");
-	    else printf("The value of enterprise is equal or larger than the threshold.\n");
+	
+	    //if(mpz_cmp_si(t,0)) printf("The value of enterprise is smaller than the threshold.\n");
+	    //else printf("The value of enterprise is equal or larger than the threshold.\n");
 	
 	
-	    printf("--------------------------------------------------------\n");
+	    //printf("--------------------------------------------------------\n");
 
-	    gmp_printf ("Proof:The inputA=%Zd, inputB=%Zd\n",a,b);
-	    */
-	    int res;
-	    res=mpz_cmp_si(t,0);
+	    //gmp_printf ("Proof:The inputA=%Zd, inputB=%Zd\n",a,b);
 	
 
-	
+	    int res=mpz_cmp_si(t,0);
 	
 
 	

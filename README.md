@@ -31,38 +31,6 @@ tau:The comparison threshold that we set
 This means the comparison between 0.0023*20001 and 46
 ```
 
-**Key function**
-
-**gen_public_key**
-
-```
-gen_public_key()
-return public_key(char *)
-```
-
-**encryptX**
-
-```
-char* encryptX(char* input)
-return the encryption value of input(char *)
-
-input:input value which will be encrypted
-```
-
-
-
-**encryptCompute**
-
-```
-encryptCompute(char* inputcd,char* inputcr)
-return the  encryption value of x*y+r
-
-inputcd:The encryption value of r
-inputcd:The encryption value of x*y
-```
-
-
-
 ## For example
 
 ![image-20230420211215370](https://pic-1306483575.cos.ap-nanjing.myqcloud.com/images/image-20230420211215370.png)
@@ -78,3 +46,6 @@ Now this had been merged in the main program in `lsic.c` and `lsic.h`
 ![image-20221002222000383](https://pic-1306483575.cos.ap-nanjing.myqcloud.com/images/image-20221002222000383.png)
 
 ![image-20221002222037409](https://pic-1306483575.cos.ap-nanjing.myqcloud.com/images/image-20221002222037409.png)
+
+![image-20230429221603016](https://pic-1306483575.cos.ap-nanjing.myqcloud.com/images/image-20230429221603016.png)
+
